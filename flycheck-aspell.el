@@ -102,24 +102,26 @@
 	 (mapcar 'flycheck-aspell-handle-line
 		 (split-string output "\n"))))
     (dolist (struct error-structs)
-      (let* ((word (nth 0 struct))
-    	     (column (nth 1 struct))
-    	     (suggestions (nth 2 struct)))
-    	(while (not (or (null (cdr buffer-lines))
-			(string-match-p word (car buffer-lines))))
-    	  (setq buffer-lines (cdr buffer-lines))
-    	  (setq line-number (1+ line-number)))
-	(message "%s: %s" word line-number)
-	(push
-	 (flycheck-error-new-at
-    	  line-number (1+ column) 'error
-    	  (if (null suggestions)
-    	      (concat "Unknown: " word)
-    	    (concat "Suggest: " word " -> " suggestions))
-    	  :checker checker
-    	  :buffer buffer
-    	  :filename (buffer-file-name buffer))
-	 final-return)))))
+      (unless (null struct)
+	(let* ((word (nth 0 struct))
+    	       (column (nth 1 struct))
+    	       (suggestions (nth 2 struct)))
+    	  (while (not (or (null (cdr buffer-lines))
+			  (string-match-p word (car buffer-lines))))
+    	    (setq buffer-lines (cdr buffer-lines))
+    	    (setq line-number (1+ line-number)))
+	  ;; (message "%s: %s" word line-number)
+	  (push
+	   (flycheck-error-new-at
+    	    line-number (1+ column) 'error
+    	    (if (null suggestions)
+    		(concat "Unknown: " word)
+    	      (concat "Suggest: " word " -> " suggestions))
+    	    :checker checker
+    	    :buffer buffer
+    	    :filename (buffer-file-name buffer))
+	   final-return))))
+    final-return))
 
 (defun flycheck-aspell-handle-line (line)
   (cond
