@@ -79,6 +79,8 @@
 
 ;; * bottom footer :code:
 
+(require 'flycheck)
+
 (flycheck-define-checker tex-aspell-generic
   "A spell checker for TeX files using aspell."
   :command ("aspell" "pipe"
