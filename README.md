@@ -1,15 +1,17 @@
 Note: this file is auto converted from flycheck-aspell.el by [el2org](https://github.com/tumashu/el2org), please do not edit it by hand!!!
 
-- [flycheck-aspell](#orgc71a9ab)
-  - [Installation](#org9615212)
-  - [Usage](#org29e9997)
-  - [Configuration](#org3f6c884)
-  - [Features](#orgcb5ebd0)
+- [flycheck-aspell](#org25e8d31)
+  - [Installation](#org654ffec)
+  - [Usage](#org55973de)
+  - [Configuration](#org84c4b68)
+  - [Features](#orgab2426e)
 
 
-<a id="orgc71a9ab"></a>
+<a id="org25e8d31"></a>
 
 # flycheck-aspell
+
+![flycheck-aspell in action](screenshot.png)
 
 This package adds support for spell checking to flycheck using the [GNU aspell](http://aspell.net) application.
 
@@ -18,14 +20,14 @@ It is a successor (and complete rewrite) to my [flycheck-hunspell](https://githu
 Aspell also seems to be a bit more flexible than hunspell with regard to filters, which might prove to be useful in the future.
 
 
-<a id="org9615212"></a>
+<a id="org654ffec"></a>
 
 ## Installation
 
 I recommend using [straight.el](https://github.com/raxod502/straight.el) for installing non-(m)elpa sources.
 
 
-<a id="org29e9997"></a>
+<a id="org55973de"></a>
 
 ## Usage
 
@@ -38,7 +40,7 @@ Simply register your preferred checkers with flycheck.
 You of course also need to install the `hunspell` binary. All major linux distributions package it and there's probably a working macport or something.
 
 
-<a id="org3f6c884"></a>
+<a id="org84c4b68"></a>
 
 ## Configuration
 
@@ -62,7 +64,7 @@ You may also want to advice \`ispell-pdict-save\` for instant feedback when inse
 ```
 
 
-<a id="orgcb5ebd0"></a>
+<a id="orgab2426e"></a>
 
 ## TODO Features
 
