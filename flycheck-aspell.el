@@ -1,4 +1,4 @@
-;;; flycheck-aspell --- simple spell check using flycheck and aspell
+;;; flycheck-aspell --- simple spell check using flycheck and aspell -*- lexical-binding: t; -*-
 
 ;; Author: Leo Gaskin <leo.gaskin@brg-feldkirchen.at>
 ;; Created: 26 May 2019
