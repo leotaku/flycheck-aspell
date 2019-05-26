@@ -48,12 +48,20 @@
 ;; ** Usage
 
 ;; Simply register your preferred checkers with flycheck.
+;; (see [[Features]] for supported filetypes)
 
 ;; #+begin_src elisp
+;; (require 'flycheck-aspell)
 ;; (add-to-list 'flycheck-checkers 'tex-aspell-generic)
 ;; #+end_src
 
-;; You of course also need to install the =hunspell= binary.
+;; The dictionary the checkers use is determined by the value of
+;; `ispell-local-dictionary` or `ispell-dictionary`.
+
+;; It might be wise to skim the [[https://www.flycheck.org/en/latest/][flycheck docs]]
+;; to learn how to efficently use and configure flycheck.
+
+;; You of course also need to install the =aspell= binary.
 ;; All major linux distributions package it and there's probably
 ;; a working macport or something.
 
@@ -85,9 +93,10 @@
 ;; + [X] initial featureset
 ;; + [ ] checkers for all filters
 ;;   - [X] TeX
+;;   - [ ] plain (url support)
 ;;   - [ ] nroff
 ;;   - [ ] html
-;;   - all others
+;;   - [ ] ...
 ;; + [ ] tests
 ;; + [ ] honor ispell localwords
 

@@ -1,13 +1,13 @@
 Note: this file is auto converted from flycheck-aspell.el by [el2org](https://github.com/tumashu/el2org), please do not edit it by hand!!!
 
-- [flycheck-aspell](#org25e8d31)
-  - [Installation](#org654ffec)
-  - [Usage](#org55973de)
-  - [Configuration](#org84c4b68)
-  - [Features](#orgab2426e)
+- [flycheck-aspell](#org50ec2f7)
+  - [Installation](#orgb267d96)
+  - [Usage](#org954cd79)
+  - [Configuration](#orgc9f8fde)
+  - [Features](#orgcdde5bd)
 
 
-<a id="org25e8d31"></a>
+<a id="org50ec2f7"></a>
 
 # flycheck-aspell
 
@@ -20,27 +20,32 @@ It is a successor (and complete rewrite) to my [flycheck-hunspell](https://githu
 Aspell also seems to be a bit more flexible than hunspell with regard to filters, which might prove to be useful in the future.
 
 
-<a id="org654ffec"></a>
+<a id="orgb267d96"></a>
 
 ## Installation
 
 I recommend using [straight.el](https://github.com/raxod502/straight.el) for installing non-(m)elpa sources.
 
 
-<a id="org55973de"></a>
+<a id="org954cd79"></a>
 
 ## Usage
 
-Simply register your preferred checkers with flycheck.
+Simply register your preferred checkers with flycheck. (see [1.4](#orgcdde5bd) for supported filetypes)
 
 ```elisp
+(require 'flycheck-aspell)
 (add-to-list 'flycheck-checkers 'tex-aspell-generic)
 ```
 
-You of course also need to install the `hunspell` binary. All major linux distributions package it and there's probably a working macport or something.
+The dictionary the checkers use is determined by the value of \`ispell-local-dictionary\` or \`ispell-dictionary\`.
+
+It might be wise to skim the [flycheck docs](https://www.flycheck.org/en/latest/) to learn how to efficently use and configure flycheck.
+
+You of course also need to install the `aspell` binary. All major linux distributions package it and there's probably a working macport or something.
 
 
-<a id="org84c4b68"></a>
+<a id="orgc9f8fde"></a>
 
 ## Configuration
 
@@ -64,15 +69,16 @@ You may also want to advice \`ispell-pdict-save\` for instant feedback when inse
 ```
 
 
-<a id="orgab2426e"></a>
+<a id="orgcdde5bd"></a>
 
 ## TODO Features
 
 -   [X] initial featureset
 -   [ ] checkers for all filters
     -   [X] TeX
+    -   [ ] plain (url support)
     -   [ ] nroff
     -   [ ] html
-    -   all others
+    -   [ ] &#x2026;
 -   [ ] tests
 -   [ ] honor ispell localwords
