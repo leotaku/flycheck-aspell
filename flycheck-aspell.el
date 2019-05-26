@@ -24,7 +24,7 @@
 
 ;;; Commentary
 
-;; * flyspell-aspell :README:
+;; * flycheck-aspell :README:
 
 ;; This package adds support for spell checking to flycheck using
 ;; the [[http://aspell.net][GNU aspell]] application.
@@ -33,6 +33,7 @@
 ;; [[https://github.com/leotaku/flycheck-hunspell][flycheck-hunspell]]
 ;; project, which was crippled by the bad performance of hunspell when
 ;; used with larger files.
+;; (aspell performs aproximately 30x faster in the cases I tested.)
 
 ;; Aspell also seems to be a bit more flexible than hunspell with regard
 ;; to filters, which might prove to be useful in the future.
@@ -71,11 +72,22 @@
 ;; new entries into your local dictionary:
  
 ;; #+begin_src elisp
-;; (advice-add 'ispell-pdict-save :after 'flyspell-maybe-recheck)
-;; (defun flyspell-maybe-recheck (_)
+;; (advice-add 'ispell-pdict-save :after 'flycheck-maybe-recheck)
+;; (defun flycheck-maybe-recheck (_)
 ;;   (when (bound-and-true-p flycheck-mode)
 ;;    (flycheck-buffer))
 ;; #+end_src
+
+;; ** TODO Features
+
+;; + [X] initial featureset
+;; + [ ] checkers for all filters
+;;   - [X] TeX
+;;   - [ ] nroff
+;;   - [ ] html
+;;   - all others
+;; + [ ] tests
+;; + [ ] honor ispell localwords
 
 ;; * bottom footer :code:
 
