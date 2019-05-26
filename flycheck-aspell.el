@@ -80,11 +80,13 @@
 ;; * bottom footer :code:
 
 (require 'flycheck)
+;; (require 'ispell)
 
 (flycheck-define-checker tex-aspell-generic
   "A spell checker for TeX files using aspell."
   :command ("aspell" "pipe"
-	    "-d" (eval ispell-local-dictionary)
+	    "-d" (eval (or ispell-local-dictionary
+			   ispell-dictionary))
 	    "--add-filter" "tex")
   :standard-input t
   :error-parser flycheck-parse-aspell
