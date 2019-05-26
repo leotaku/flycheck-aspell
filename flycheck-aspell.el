@@ -26,6 +26,8 @@
 
 ;; * flycheck-aspell :README:
 
+;; ![[file:screenshot.png][flycheck-aspell in action]]
+
 ;; This package adds support for spell checking to flycheck using
 ;; the [[http://aspell.net][GNU aspell]] application.
 
