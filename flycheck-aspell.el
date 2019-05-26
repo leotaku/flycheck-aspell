@@ -98,18 +98,19 @@
 ;;   - [ ] html
 ;;   - [ ] ...
 ;; + [ ] tests
-;; + [ ] honor ispell localwords
+;; + [X] honor ispell localwords (they are marked as info)
 
 ;; * bottom footer :code:
 
 (require 'flycheck)
-;; (require 'ispell)
+(require 'ispell)
 
 (flycheck-define-checker tex-aspell-generic
   "A spell checker for TeX files using aspell."
   :command ("aspell" "pipe"
 	    "-d" (eval (or ispell-local-dictionary
-			   ispell-dictionary))
+			   ispell-dictionary
+			   "en_US"))
 	    "--add-filter" "tex")
   :standard-input t
   :error-parser flycheck-parse-aspell
@@ -138,7 +139,9 @@
 	  ;; (message "%s: %s" word line-number)
 	  (push
 	   (flycheck-error-new-at
-    	    line-number (1+ column) 'error
+    	    line-number (1+ column)
+	    (if (member word ispell-buffer-session-localwords)
+		'info 'error)
     	    (if (null suggestions)
     		(concat "Unknown: " word)
     	      (concat "Suggest: " word " -> " suggestions))
