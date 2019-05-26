@@ -159,3 +159,5 @@
 	(column (match-string 2 line))
 	(suggestions (match-string 3 line)))
     (list word (string-to-number column) suggestions)))
+
+(provide 'flycheck-aspell)
