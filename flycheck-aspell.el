@@ -105,85 +105,132 @@
 (require 'flycheck)
 (require 'ispell)
 
-(flycheck-define-checker tex-aspell-generic
+;; (flycheck-define-checker plain-aspell-generic
+;;   "A spell checker for plain text files using aspell."
+;;   :command ("aspell" "pipe"
+;; 	    "-d" (eval (or ispell-local-dictionary
+;; 			   ispell-dictionary
+;; 			   "en_US"))
+;; 	    "--add-filter" "url")
+;;   :standard-input t
+;;   :error-parser flycheck-parse-aspell
+;;   :modes (org-mode ))
+
+;; (flycheck-define-checker tex-aspell-generic
+;;   "A spell checker for TeX files using aspell."
+;;   :command ("aspell" "pipe"
+;; 	    "-d" (eval (or ispell-local-dictionary
+;; 			   ispell-dictionary
+;; 			   "en_US"))
+;; 	    "--add-filter" "tex")
+;;   :standard-input t
+;;   :error-parser flycheck-parse-aspell
+;;   :modes (tex-mode latex-mode context-mode))
+
+(defun flycheck-run-aspell (checker callback)
+  (with-demoted-errors "Error: %s"
+    (let ((buffer (current-buffer))
+	  (buffer-string (buffer-string)))
+      ;; (message "test: Checker is run")
+      (async-start
+       `(lambda ()
+	
+	  (defun flycheck-parse-aspell2 (output checker buffer-string)
+	    (let ((final-return nil)
+		  (line-number 1)
+		  (buffer-lines
+		   (split-string buffer-string "\n"))
+		  (error-structs
+		   (mapcar 'flycheck-aspell-handle-line
+			   (split-string output "\n"))))
+	      (dolist (struct error-structs)
+		(unless (null struct)
+		  (let* ((word (nth 0 struct))
+			 (column (nth 1 struct))
+			 (suggestions (nth 2 struct)))
+		    (while (not (or (null (cdr buffer-lines))
+				    (string-match-p
+				     word
+				     ;; (concat
+				     ;;  (rx (or (not letter) line-start))
+				     ;;  word
+				     ;;  (rx (or (not letter) line-start)))
+				     (car buffer-lines))))
+		      (setq buffer-lines (cdr buffer-lines))
+		      (setq line-number (1+ line-number)))
+		    ;; (message "%s: %s" word line-number)
+		    ;; FIXME: aspell seemingly sometimes reports
+		    ;; (message "%s at %s/%s: %s" word line-number column (car buffer-lines))
+		    ;; (setf (car buffer-lines)
+		    ;; 	(concat (make-string (+ column (length word) 1) ?=)
+		    ;; 		(substring (car buffer-lines)
+		    ;; 			   (+ (+ column (length word)) 0))))
+		    (push
+		     `(flycheck-error-new-at
+		       ,line-number ,(1+ column)
+		       (if (member ,word ispell-buffer-session-localwords)
+			   'info 'error)
+		       ,(if (null suggestions)
+			    (concat "Unknown: " word)
+			  (concat "Suggest: " word " -> " suggestions))
+		       :checker ',checker
+		       :buffer (current-buffer)
+		       :filename (buffer-file-name (current-buffer)))
+		     final-return))))
+	      final-return))
+
+	  (defun flycheck-aspell-handle-line (line)
+	    (cond
+	     ;; # indicates that no replacement could be found
+	     ((string-match-p "^#" line)
+	      (flycheck-aspell-handle-hash line))
+	     ;; & indicates that replacements could be found
+	     ((string-match-p "^&" line)
+	      (flycheck-aspell-handle-and line))
+	     ;; other lines are irrelevant
+	     (t
+	      nil)))
+
+	  (defun flycheck-aspell-handle-hash (line)
+	    (string-match
+	     (rx line-start "# "	; start
+		 (group (+ char)) " "	; error
+		 (group (+ digit)))	; column
+	     line)
+	    (let ((word (match-string 1 line))
+		  (column (match-string 2 line)))
+	      (list word (string-to-number column) nil)))
+
+	  (defun flycheck-aspell-handle-and (line)
+	    (string-match
+	     (rx line-start "& "	; start
+		 (group (+ char)) " "	; error
+		 (+ digit) " "		; suggestion count
+		 (group (+ digit)) ": " ; column
+		 (group (+? anything)) line-end)
+	     line)
+	    (let ((word (match-string 1 line))
+		  (column (match-string 2 line))
+		  (suggestions (match-string 3 line)))
+	      (list word (string-to-number column) suggestions)))
+	
+	  (let ((aspell-output
+		 (with-temp-buffer
+    		   (call-process-region
+    		    ,buffer-string nil
+    		    "aspell"
+    		    nil t nil
+    		    "pipe" "-d" "en_US")
+    		   (buffer-string))))
+	    (flycheck-parse-aspell2 aspell-output ',checker ,buffer-string)))
+       `(lambda (return)
+	  ;; (message "test: %S" (mapcar 'eval return))
+	  (with-current-buffer ,buffer
+	    (funcall ,callback 'finished (mapcar 'eval return))))))))
+
+(flycheck-define-generic-checker 'tex-aspell-generic2
   "A spell checker for TeX files using aspell."
-  :command ("aspell" "pipe"
-	    "-d" (eval (or ispell-local-dictionary
-			   ispell-dictionary
-			   "en_US"))
-	    "--add-filter" "tex")
-  :standard-input t
-  :error-parser flycheck-parse-aspell
-  :modes (tex-mode latex-mode context-mode))
-
-(defun flycheck-parse-aspell (output checker buffer)
-  (let ((final-return nil)
-	(line-number 1)
-	(buffer-lines
-	 (split-string
-	  (with-current-buffer buffer
-	    (substring-no-properties (buffer-string)))
-	  "\n"))
-	(error-structs
-	 (mapcar 'flycheck-aspell-handle-line
-		 (split-string output "\n"))))
-    (dolist (struct error-structs)
-      (unless (null struct)
-	(let* ((word (nth 0 struct))
-    	       (column (nth 1 struct))
-    	       (suggestions (nth 2 struct)))
-    	  (while (not (or (null (cdr buffer-lines))
-			  (string-match-p word (car buffer-lines))))
-    	    (setq buffer-lines (cdr buffer-lines))
-    	    (setq line-number (1+ line-number)))
-	  ;; (message "%s: %s" word line-number)
-	  (push
-	   (flycheck-error-new-at
-    	    line-number (1+ column)
-	    (if (member word ispell-buffer-session-localwords)
-		'info 'error)
-    	    (if (null suggestions)
-    		(concat "Unknown: " word)
-    	      (concat "Suggest: " word " -> " suggestions))
-    	    :checker checker
-    	    :buffer buffer
-    	    :filename (buffer-file-name buffer))
-	   final-return))))
-    final-return))
-
-(defun flycheck-aspell-handle-line (line)
-  (cond
-   ;; # indicates that no replacement could be found
-   ((string-match-p "^#" line)
-    (flycheck-aspell-handle-hash line))
-   ;; & indicates that replacements could be found
-   ((string-match-p "^&" line)
-    (flycheck-aspell-handle-and line))
-   ;; other lines are irrelevant
-   (t
-    nil)))
-
-(defun flycheck-aspell-handle-hash (line)
-  (string-match
-   (rx line-start "# "			; start
-       (group (+ char)) " "		; error
-       (group (+ digit)))		; column
-   line)
-  (let ((word (match-string 1 line))
-	(column (match-string 2 line)))
-    (list word (string-to-number column) nil)))
-
-(defun flycheck-aspell-handle-and (line)
-  (string-match
-   (rx line-start "& "			; start
-       (group (+ char)) " "		; error
-       (+ digit) " "			; suggestion count
-       (group (+ digit)) ": "		; column
-       (group (+? anything)) line-end)
-   line)
-  (let ((word (match-string 1 line))
-	(column (match-string 2 line))
-	(suggestions (match-string 3 line)))
-    (list word (string-to-number column) suggestions)))
+  :start 'flycheck-run-aspell
+  :modes '(markdown-mode))
 
 (provide 'flycheck-aspell)
