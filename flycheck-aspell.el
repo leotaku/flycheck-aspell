@@ -80,7 +80,7 @@
 
 ;; You may also want to advice `ispell-pdict-save` for instant feedback when inserting
 ;; new entries into your local dictionary:
- 
+
 ;; #+begin_src elisp
 ;; (advice-add 'ispell-pdict-save :after 'flycheck-maybe-recheck)
 ;; (defun flycheck-maybe-recheck (_)
@@ -91,12 +91,13 @@
 ;; ** TODO Features
 
 ;; + [X] initial featureset
-;; + [ ] checkers for all filters
+;; + [-] checkers for all filters (all with url support)
 ;;   - [X] TeX
-;;   - [ ] plain (url support)
-;;   - [ ] nroff
-;;   - [ ] html
-;;   - [ ] ...
+;;   - [X] markdown
+;;   - [X] nroff
+;;   - [X] html
+;;   - [X] texinfo
+;;   - [ ] email
 ;; + [ ] tests
 ;; + [X] honor ispell localwords (they are marked as info)
 
@@ -105,16 +106,27 @@
 (require 'flycheck)
 (require 'ispell)
 
-(flycheck-define-checker tex-aspell-generic
-  "A spell checker for TeX files using aspell."
-  :command ("aspell" "pipe"
-	    "-d" (eval (or ispell-local-dictionary
-			   ispell-dictionary
-			   "en_US"))
-	    "--add-filter" "tex")
-  :standard-input t
-  :error-parser flycheck-parse-aspell
-  :modes (tex-mode latex-mode context-mode))
+(defmacro flycheck-aspell-define-checker (ft ft-doc flags modes)
+  `(flycheck-define-checker ,(intern (concat ft "-aspell-dynamic"))
+     ,(format "A spell checker for %s files using aspell." ft-doc)
+     :command ("aspell" "pipe"
+	       "-d" (eval (or ispell-local-dictionary
+			      ispell-dictionary
+			      "en_US"))
+	       ,@flags)
+     :standard-input t
+     :error-parser flycheck-parse-aspell
+     :modes ,modes))
+(put 'flycheck-aspell-define-checker 'lisp-indent-function 'defun)
+
+(flycheck-aspell-define-checker "tex"
+  "TeX" ("--add-filter" "url" "tex") (tex-mode latex-mode context-mode))
+(flycheck-aspell-define-checker "markdown"
+  "Markdown" ("--add-filter" "url" "html"))
+(flycheck-aspell-define-checker "nroff"
+  "nroff/troff/groff" ("--add-filter" "url" "nroff"))
+(flycheck-aspell-define-checker "texinfo"
+  "Texinfo" ("--add-filter" "url" "texinfo"))
 
 (defun flycheck-parse-aspell (output checker buffer)
   (let ((final-return nil)
