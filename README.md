@@ -1,13 +1,13 @@
 Note: this file is auto converted from flycheck-aspell.el by [el2org](https://github.com/tumashu/el2org), please do not edit it by hand!!!
 
-- [flycheck-aspell](#org4c2f64f)
-  - [Installation](#org2869f35)
-  - [Usage](#org337b04f)
-  - [Configuration](#org5b06cd5)
-  - [Features](#orgdc97679)
+- [flycheck-aspell](#orga17184f)
+  - [Installation](#org8d20563)
+  - [Usage](#org05aafe0)
+  - [Configuration](#orgbbdf0f4)
+  - [Features](#org3ce7cd3)
 
 
-<a id="org4c2f64f"></a>
+<a id="orga17184f"></a>
 
 # flycheck-aspell
 
@@ -20,18 +20,18 @@ It is a successor (and complete rewrite) to my [flycheck-hunspell](https://githu
 Aspell also seems to be a bit more flexible than hunspell with regard to filters, which might prove to be useful in the future.
 
 
-<a id="org2869f35"></a>
+<a id="org8d20563"></a>
 
 ## Installation
 
 I recommend using [straight.el](https://github.com/raxod502/straight.el) for installing non-(m)elpa sources.
 
 
-<a id="org337b04f"></a>
+<a id="org05aafe0"></a>
 
 ## Usage
 
-Simply register your preferred checkers with flycheck. (see [1.4](#orgdc97679) for supported filetypes)
+Simply register your preferred checkers with flycheck. (see [1.4](#org3ce7cd3) for supported filetypes)
 
 ```elisp
 (require 'flycheck-aspell)
@@ -45,7 +45,7 @@ It might be wise to skim the [flycheck docs](https://www.flycheck.org/en/latest/
 You of course also need to install the `aspell` binary. All major linux distributions package it and there's probably a working macport or something.
 
 
-<a id="org5b06cd5"></a>
+<a id="orgbbdf0f4"></a>
 
 ## Configuration
 
@@ -69,12 +69,12 @@ You may also want to advice \`ispell-pdict-save\` for instant feedback when inse
 ```
 
 
-<a id="orgdc97679"></a>
+<a id="org3ce7cd3"></a>
 
 ## TODO Features
 
 -   [X] initial featureset
--   [-] checkers for all filters (all with url support)
+-   [X] checkers for all filters (all with url support)
     -   [X] TeX
     -   [X] markdown
     -   [X] nroff

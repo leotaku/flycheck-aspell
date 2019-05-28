@@ -91,7 +91,7 @@
 ;; ** TODO Features
 
 ;; + [X] initial featureset
-;; + [-] checkers for all filters (all with url support)
+;; + [X] checkers for all filters (all with url support)
 ;;   - [X] TeX
 ;;   - [X] markdown
 ;;   - [X] nroff
