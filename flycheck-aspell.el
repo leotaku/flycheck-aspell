@@ -158,7 +158,11 @@
 			   (car buffer-lines))))
     	    (setq buffer-lines (cdr buffer-lines))
     	    (setq line-number (1+ line-number)))
-	  ;; (message "%s: %s" word line-number)
+	  (setf (car buffer-lines)
+		(concat
+		 (make-string (1+ column) ?.)
+		 (substring (car buffer-lines) (1+ column))))
+	  ;; (message "%s: %s" word (car buffer-lines))
 	  (push
 	   (flycheck-error-new-at
     	    line-number (1+ column)
