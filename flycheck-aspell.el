@@ -120,17 +120,17 @@
 (put 'flycheck-aspell-define-checker 'lisp-indent-function 'defun)
 
 (flycheck-aspell-define-checker "tex"
-  "TeX" ("--add-filter" "url" "tex") (tex-mode latex-mode context-mode))
+  "TeX" ("--add-filter" "url" "--add-filter" "tex") (tex-mode latex-mode context-mode))
 (flycheck-aspell-define-checker "markdown"
-  "Markdown" ("--add-filter" "url" "html") (markdown-mode))
+  "Markdown" ("--add-filter" "url" "--add-filter" "html") (markdown-mode))
 (flycheck-aspell-define-checker "html"
-  "HTML" ("--add-filter" "url" "html") (html-mode))
+  "HTML" ("--add-filter" "url" "--add-filter" "html") (html-mode))
 (flycheck-aspell-define-checker "nroff"
-  "nroff/troff/groff" ("--add-filter" "url" "nroff") (nroff-mode))
+  "nroff/troff/groff" ("--add-filter" "url" "--add-filter" "nroff") (nroff-mode))
 (flycheck-aspell-define-checker "texinfo"
-  "Texinfo" ("--add-filter" "url" "texinfo") (texinfo-mode))
+  "Texinfo" ("--add-filter" "url" "--add-filter" "texinfo") (texinfo-mode))
 (flycheck-aspell-define-checker "mail"
-  "Mail" ("--add-filter" "url" "email") (message-mode))
+  "Mail" ("--add-filter" "url" "--add-filter" "email") (message-mode))
 
 (defun flycheck-parse-aspell (output checker buffer)
   (let ((final-return nil)
