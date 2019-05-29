@@ -1,13 +1,13 @@
 Note: this file is auto converted from flycheck-aspell.el by [el2org](https://github.com/tumashu/el2org), please do not edit it by hand!!!
 
-- [flycheck-aspell](#orga17184f)
-  - [Installation](#org8d20563)
-  - [Usage](#org05aafe0)
-  - [Configuration](#orgbbdf0f4)
-  - [Features](#org3ce7cd3)
+- [flycheck-aspell](#org0ec53be)
+  - [Installation](#org34710be)
+  - [Usage](#org0f6e953)
+  - [Configuration](#org23bcb39)
+  - [Features](#orga54749a)
 
 
-<a id="orga17184f"></a>
+<a id="org0ec53be"></a>
 
 # flycheck-aspell
 
@@ -20,18 +20,18 @@ It is a successor (and complete rewrite) to my [flycheck-hunspell](https://githu
 Aspell also seems to be a bit more flexible than hunspell with regard to filters, which might prove to be useful in the future.
 
 
-<a id="org8d20563"></a>
+<a id="org34710be"></a>
 
 ## Installation
 
 I recommend using [straight.el](https://github.com/raxod502/straight.el) for installing non-(m)elpa sources.
 
 
-<a id="org05aafe0"></a>
+<a id="org0f6e953"></a>
 
 ## Usage
 
-Simply register your preferred checkers with flycheck. (see [1.4](#org3ce7cd3) for supported filetypes)
+Simply register your preferred checkers with flycheck. (see [1.4](#orga54749a) for supported filetypes)
 
 ```elisp
 (require 'flycheck-aspell)
@@ -45,7 +45,7 @@ It might be wise to skim the [flycheck docs](https://www.flycheck.org/en/latest/
 You of course also need to install the `aspell` binary. All major linux distributions package it and there's probably a working macport or something.
 
 
-<a id="orgbbdf0f4"></a>
+<a id="org23bcb39"></a>
 
 ## Configuration
 
@@ -69,7 +69,7 @@ You may also want to advice \`ispell-pdict-save\` for instant feedback when inse
 ```
 
 
-<a id="org3ce7cd3"></a>
+<a id="orga54749a"></a>
 
 ## TODO Features
 
@@ -80,6 +80,6 @@ You may also want to advice \`ispell-pdict-save\` for instant feedback when inse
     -   [X] nroff
     -   [X] html
     -   [X] texinfo
-    -   [ ] email
+    -   [X] email (message-mode)
 -   [ ] tests
 -   [X] honor ispell localwords (they are marked as info)
