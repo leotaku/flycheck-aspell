@@ -1,13 +1,13 @@
 Note: this file is auto converted from flycheck-aspell.el by [el2org](https://github.com/tumashu/el2org), please do not edit it by hand!!!
 
-- [flycheck-aspell](#org0ec53be)
-  - [Installation](#org34710be)
-  - [Usage](#org0f6e953)
-  - [Configuration](#org23bcb39)
-  - [Features](#orga54749a)
+- [flycheck-aspell](#orgddf9925)
+  - [Installation](#orgb225028)
+  - [Usage](#org58040f2)
+  - [Configuration](#org8702446)
+  - [Features](#orga420590)
 
 
-<a id="org0ec53be"></a>
+<a id="orgddf9925"></a>
 
 # flycheck-aspell
 
@@ -20,22 +20,22 @@ It is a successor (and complete rewrite) to my [flycheck-hunspell](https://githu
 Aspell also seems to be a bit more flexible than hunspell with regard to filters, which might prove to be useful in the future.
 
 
-<a id="org34710be"></a>
+<a id="orgb225028"></a>
 
 ## Installation
 
 I recommend using [straight.el](https://github.com/raxod502/straight.el) for installing non-(m)elpa sources.
 
 
-<a id="org0f6e953"></a>
+<a id="org58040f2"></a>
 
 ## Usage
 
-Simply register your preferred checkers with flycheck. (see [1.4](#orga54749a) for supported filetypes)
+Simply register your preferred checkers with flycheck and then start `flycheck-mode` in the buffer you would like to spell-check. (see [1.4](#orga420590) for supported filetypes)
 
 ```elisp
 (require 'flycheck-aspell)
-(add-to-list 'flycheck-checkers 'tex-aspell-generic)
+(add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
 ```
 
 The dictionary the checkers use is determined by the value of \`ispell-local-dictionary\` or \`ispell-dictionary\`.
@@ -45,7 +45,7 @@ It might be wise to skim the [flycheck docs](https://www.flycheck.org/en/latest/
 You of course also need to install the `aspell` binary. All major linux distributions package it and there's probably a working macport or something.
 
 
-<a id="org23bcb39"></a>
+<a id="org8702446"></a>
 
 ## Configuration
 
@@ -54,7 +54,7 @@ For steamless ispell integration, I recommend setting the following variables:
 ```elisp
 (setq ispell-dictionary "some_dictionary"
       ispell-program-name "aspell"
-     ispell-silently-savep t)
+      ispell-silently-savep t)
 ```
 
 [This post](https://blog.binchen.org/posts/what-s-the-best-spell-check-set-up-in-emacs.html) might also be of interest.
@@ -69,7 +69,7 @@ You may also want to advice \`ispell-pdict-save\` for instant feedback when inse
 ```
 
 
-<a id="orga54749a"></a>
+<a id="orga420590"></a>
 
 ## TODO Features
 

@@ -47,12 +47,13 @@
 
 ;; ** Usage
 
-;; Simply register your preferred checkers with flycheck.
+;; Simply register your preferred checkers with flycheck and then start =flycheck-mode=
+;; in the buffer you would like to spell-check.
 ;; (see [[Features]] for supported filetypes)
 
 ;; #+begin_src elisp
 ;; (require 'flycheck-aspell)
-;; (add-to-list 'flycheck-checkers 'tex-aspell-generic)
+;; (add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
 ;; #+end_src
 
 ;; The dictionary the checkers use is determined by the value of
@@ -72,7 +73,7 @@
 ;; #+begin_src elisp
 ;; (setq ispell-dictionary "some_dictionary"
 ;;       ispell-program-name "aspell"
-;; 	 ispell-silently-savep t)
+;; 	  ispell-silently-savep t)
 ;; #+end_src
 
 ;; [[https://blog.binchen.org/posts/what-s-the-best-spell-check-set-up-in-emacs.html][This post]]
