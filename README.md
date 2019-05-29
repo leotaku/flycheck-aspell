@@ -49,7 +49,7 @@ You of course also need to install the `aspell` binary. All major linux distribu
 
 ## Configuration
 
-For seamless ispell integration, I recommend setting the following variables:
+For steamless ispell integration, I recommend setting the following variables:
 
 ```elisp
 (setq ispell-dictionary "some_dictionary"
