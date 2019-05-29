@@ -150,7 +150,12 @@
     	       (column (nth 1 struct))
     	       (suggestions (nth 2 struct)))
     	  (while (not (or (null (cdr buffer-lines))
-			  (string-match-p word (car buffer-lines))))
+			  (string-match-p
+			   (concat
+			    "\\(?:\\<\\|[^[:alpha:]]\\)"
+			    word
+			    "\\(?:\\>\\|[^[:alpha:]]\\)")
+			   (car buffer-lines))))
     	    (setq buffer-lines (cdr buffer-lines))
     	    (setq line-number (1+ line-number)))
 	  ;; (message "%s: %s" word line-number)
