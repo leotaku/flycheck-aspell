@@ -97,7 +97,7 @@
 ;;   - [X] nroff
 ;;   - [X] html
 ;;   - [X] texinfo
-;;   - [ ] email
+;;   - [X] email (message-mode)
 ;; + [ ] tests
 ;; + [X] honor ispell localwords (they are marked as info)
 
@@ -122,11 +122,15 @@
 (flycheck-aspell-define-checker "tex"
   "TeX" ("--add-filter" "url" "tex") (tex-mode latex-mode context-mode))
 (flycheck-aspell-define-checker "markdown"
-  "Markdown" ("--add-filter" "url" "html"))
+  "Markdown" ("--add-filter" "url" "html") (markdown-mode))
+(flycheck-aspell-define-checker "html"
+  "HTML" ("--add-filter" "url" "html") (html-mode))
 (flycheck-aspell-define-checker "nroff"
-  "nroff/troff/groff" ("--add-filter" "url" "nroff"))
+  "nroff/troff/groff" ("--add-filter" "url" "nroff") (nroff-mode))
 (flycheck-aspell-define-checker "texinfo"
-  "Texinfo" ("--add-filter" "url" "texinfo"))
+  "Texinfo" ("--add-filter" "url" "texinfo") (texinfo-mode))
+(flycheck-aspell-define-checker "mail"
+  "Mail" ("--add-filter" "url" "email") (message-mode))
 
 (defun flycheck-parse-aspell (output checker buffer)
   (let ((final-return nil)
