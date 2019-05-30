@@ -1,13 +1,13 @@
 Note: this file is auto converted from flycheck-aspell.el by [el2org](https://github.com/tumashu/el2org), please do not edit it by hand!!!
 
-- [flycheck-aspell](#orgddf9925)
-  - [Installation](#orgb225028)
-  - [Usage](#org58040f2)
-  - [Configuration](#org8702446)
-  - [Features](#orga420590)
+- [flycheck-aspell](#org3d2764e)
+  - [Installation](#orga04a6ac)
+  - [Usage](#org9237923)
+  - [Configuration](#org373f3fb)
+  - [Features](#orgd84d1c3)
 
 
-<a id="orgddf9925"></a>
+<a id="org3d2764e"></a>
 
 # flycheck-aspell
 
@@ -20,18 +20,18 @@ It is a successor (and complete rewrite) to my [flycheck-hunspell](https://githu
 Aspell also seems to be a bit more flexible than hunspell with regard to filters, which might prove to be useful in the future.
 
 
-<a id="orgb225028"></a>
+<a id="orga04a6ac"></a>
 
 ## Installation
 
 I recommend using [straight.el](https://github.com/raxod502/straight.el) for installing non-(m)elpa sources.
 
 
-<a id="org58040f2"></a>
+<a id="org9237923"></a>
 
 ## Usage
 
-Simply register your preferred checkers with flycheck and then start `flycheck-mode` in the buffer you would like to spell-check. (see [1.4](#orga420590) for supported filetypes)
+Simply register your preferred checkers with flycheck and then start `flycheck-mode` in the buffer you would like to spell-check. (see [1.4](#orgd84d1c3) for supported filetypes)
 
 ```elisp
 (require 'flycheck-aspell)
@@ -42,10 +42,12 @@ The dictionary the checkers use is determined by the value of \`ispell-local-dic
 
 It might be wise to skim the [flycheck docs](https://www.flycheck.org/en/latest/) to learn how to efficently use and configure flycheck.
 
-You of course also need to install the `aspell` binary. All major linux distributions package it and there's probably a working macport or something.
+You also need to install the GNU `aspell` and `sed` binaries. `sed` is needed for preprocessing the file that is sent to aspell with high performance.
+
+All major linux distributions should package these and there are probably working macports or something.
 
 
-<a id="org8702446"></a>
+<a id="org373f3fb"></a>
 
 ## Configuration
 
@@ -69,7 +71,7 @@ You may also want to advice \`ispell-pdict-save\` for instant feedback when inse
 ```
 
 
-<a id="orga420590"></a>
+<a id="orgd84d1c3"></a>
 
 ## TODO Features
 

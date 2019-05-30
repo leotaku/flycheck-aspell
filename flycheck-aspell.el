@@ -62,9 +62,12 @@
 ;; It might be wise to skim the [[https://www.flycheck.org/en/latest/][flycheck docs]]
 ;; to learn how to efficently use and configure flycheck.
 
-;; You of course also need to install the =aspell= binary.
-;; All major linux distributions package it and there's probably
-;; a working macport or something.
+;; You also need to install the GNU =aspell= and =sed= binaries.
+;; =sed= is needed for preprocessing the file that is sent to aspell
+;; with high performance.
+
+;; All major linux distributions should package these and there are
+;; probably working macports or something.
 
 ;; ** Configuration
 
@@ -107,14 +110,27 @@
 (require 'flycheck)
 (require 'ispell)
 
+(defcustom flycheck-aspell-aspell-executable
+  "aspell"
+  "Path of the aspell executable used by all flycheck-aspell checkers.")
+
+(defcustom flycheck-aspell-sed-executable
+  "sed"
+  "Path of the sed executable used by all flycheck-aspell checkers.")
+
 (defmacro flycheck-aspell-define-checker (ft ft-doc flags modes)
   `(flycheck-define-checker ,(intern (concat ft "-aspell-dynamic"))
      ,(format "A spell checker for %s files using aspell." ft-doc)
-     :command ("aspell" "pipe"
-	       "-d" (eval (or ispell-local-dictionary
-			      ispell-dictionary
-			      "en_US"))
-	       ,@flags)
+     :command ("sh" "-c"
+	       (eval
+		(concat
+		 flycheck-aspell-sed-executable " s/^/^/ | "
+		 flycheck-aspell-aspell-executable " pipe -d "
+		 (or ispell-local-dictionary
+		     ispell-dictionary
+		     "en_US")
+		 " "
+		 (mapconcat 'identity ',flags " "))))
      :standard-input t
      :error-parser flycheck-parse-aspell
      :modes ,modes))
