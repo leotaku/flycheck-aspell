@@ -71,7 +71,7 @@
 
 ;; ** Configuration
 
-;; For steamless ispell integration, I recommend setting the following variables:
+;; For seamless ispell integration, I recommend setting the following variables:
 
 ;; #+begin_src elisp
 ;; (setq ispell-dictionary "some_dictionary"
