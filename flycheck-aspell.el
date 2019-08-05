@@ -28,6 +28,20 @@
 
 ;; * flycheck-aspell :README:
 
+;; ** IMPORTANT FOR USERS
+
+;; This repository now also contains the =flymake-aspell= package,
+;; which is what I currently use for spellchecking.
+;; Documentation regarding said package can be found in its =.el=
+;; file.
+
+;; The =flymake-aspell= package is more recent and written in a more
+;; consistent style, which might make it faster and more featureful
+;; than =flycheck-aspell=.
+
+;; However =flycheck-aspell= should still remain usable for the
+;; forseeable future.
+
 ;; ![[file:screenshot.png][flycheck-aspell in action]]
 
 ;; This package adds support for spell checking to flycheck using
