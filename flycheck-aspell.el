@@ -1,5 +1,7 @@
 ;;; flycheck-aspell --- simple spell check using flycheck and aspell -*- lexical-binding: t; -*-
 
+;; Copyright (C) 2019-2019 Leo Gaskin
+
 ;; Author: Leo Gaskin <leo.gaskin@brg-feldkirchen.at>
 ;; Created: 26 May 2019
 ;; Homepage: https://github.com/leotaku/flycheck-aspell
