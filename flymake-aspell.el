@@ -1,4 +1,4 @@
-;;; flymake-aspell.el --- aspell backend for flymake  -*- lexical-binding: t; -*-
+;;; flymake-aspell.el --- Aspell backend for flymake  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019-2019 Leo Gaskin
 
@@ -7,7 +7,7 @@
 ;; Homepage: https://github.com/leotaku/flycheck-aspell
 ;; Keywords: flymake, spell, aspell
 ;; Package-Version: 0.1.0
-;; Package-Requires: ((emacs "26.0"))
+;; Package-Requires: ((emacs "26.1"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -37,7 +37,7 @@
 (require 'pcase)
 (require 'rx)
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 ;;; Code:
 
