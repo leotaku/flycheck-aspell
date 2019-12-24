@@ -163,10 +163,11 @@ REPORT-FN is flymake's callback function."
     (make-local-variable 'flymake-diagnostic-functions)
     (push 'aspell-flymake flymake-diagnostic-functions)))
 
+(defun flymake-aspell-maybe-recheck (&rest _)
+  (when (bound-and-true-p flymake-mode)
+    (flymake-start)))
+
 (when flymake-aspell-additional-ispell-integration
-  (defun flymake-aspell-maybe-recheck (&rest _)
-    (when (bound-and-true-p flymake-mode)
-      (flymake-start)))
   (advice-add 'ispell-pdict-save :after 'flymake-aspell-maybe-recheck)
   (advice-add 'ispell-change-dictionary :after 'flymake-aspell-maybe-recheck))
 
