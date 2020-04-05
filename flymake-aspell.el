@@ -98,7 +98,7 @@ variable.
  (nroff-mode "nroff")
  (texinfo-mode "texinfo"))
 
-(defun aspell-flymake (report-fn &rest _args)
+(defun flymake-aspell--check (report-fn &rest _args)
   "Run flymake spell checker.
 
 REPORT-FN is flymake's callback function."
@@ -160,9 +160,9 @@ REPORT-FN is flymake's callback function."
 (defun flymake-aspell-setup ()
   "Enable the spell checker for the current buffer."
   (interactive)
-  (unless (memq 'aspell-flymake flymake-diagnostic-functions)
+  (unless (memq 'flymake-aspell--check flymake-diagnostic-functions)
     (make-local-variable 'flymake-diagnostic-functions)
-    (push 'aspell-flymake flymake-diagnostic-functions)))
+    (push 'flymake-aspell--check flymake-diagnostic-functions)))
 
 (defun flymake-aspell-maybe-recheck (&rest _)
   (when (bound-and-true-p flymake-mode)
