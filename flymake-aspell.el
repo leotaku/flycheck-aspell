@@ -43,9 +43,9 @@
 ;;; Code:
 
 (defvar flymake-aspell-additional-ispell-integration t
-  "By default, flymake-aspell advices some ispell functions to immediately
+  "By default, flymake-aspell advices some Ispell functions to immediately
 unmark accepted words.
-This behavior can be disabled by setting this option to `nil'.")
+This behavior can be disabled by setting this option to nil.")
 
 (defvar-local flymake-aspell-aspell-mode "url"
   "Aspell mode that should be used by the spell checker.
@@ -125,7 +125,7 @@ REPORT-FN is flymake's callback function."
         (lambda (proc _event)
           (when (eq 'exit (process-status proc))
             (unwind-protect
-                (with-current-buffer source 
+                (with-current-buffer source
                   (if (eq proc flymake-aspell--proc)
                       (let ((errors (flymake-aspell--process-text
                                      (with-current-buffer (process-buffer proc)
@@ -187,12 +187,12 @@ REPORT-FN is flymake's callback function."
                  (setq line-number 0)))
           ("*" nil)
           ("@" nil)
-          (otherwise (error "Unknown beginning of line character in line %s"
-                            line)))))
+          (_ (error "Unknown beginning of line character in line %s"
+                    line)))))
     (nreverse errors)))
 
 (defun flymake-aspell--handle-hash (line)
-  "Handle a LINE of aspell output starting with a hash sign."
+  "Handle a LINE of aspell output starting with a hash (#) sign."
   (string-match
    (rx line-start "# "                  ; start
        (group (+ wordchar)) " "         ; error
@@ -203,7 +203,7 @@ REPORT-FN is flymake's callback function."
     (list word (string-to-number column) nil)))
 
 (defun flymake-aspell--handle-and (line)
-  "Handle a LINE of aspell output starting with a and sign."
+  "Handle a LINE of aspell output starting with an and (&) sign."
   (string-match
    (rx line-start "& "			; start
        (group (+ wordchar)) " "	; error
