@@ -224,7 +224,7 @@
 (defun flycheck-aspell-handle-hash (line)
   (string-match
    (rx line-start "# "			; start
-       (group (+ char)) " "		; error
+       (group (+ wordchar)) " "	; error
        (group (+ digit)))		; column
    line)
   (let ((word (match-string 1 line))
@@ -234,9 +234,9 @@
 (defun flycheck-aspell-handle-and (line)
   (string-match
    (rx line-start "& "			; start
-       (group (+ char)) " "		; error
+       (group (+ wordchar)) " "	; error
        (+ digit) " "			; suggestion count
-       (group (+ digit)) ": "		; column
+       (group (+ digit)) ": "	; column
        (group (+? anything)) line-end)
    line)
   (let ((word (match-string 1 line))
