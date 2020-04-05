@@ -36,6 +36,7 @@
 (require 'mode-local)
 (require 'pcase)
 (require 'rx)
+(require 'ispell)
 (eval-when-compile
   (require 'cl-lib))
 
