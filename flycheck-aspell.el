@@ -138,17 +138,17 @@
   `(flycheck-define-checker ,(intern (concat ft "-aspell-dynamic"))
      ,(format "A spell checker for %s files using aspell." ft-doc)
      :command ("sh" "-c"
-	       (eval
-		(concat
-		 flycheck-aspell-sed-executable " s/^/^/ | "
-		 flycheck-aspell-aspell-executable " pipe -d "
-		 (or ispell-local-dictionary
-		     ispell-dictionary
-		     "en_US")
-		 " "
-		 (mapconcat 'identity ',flags " "))))
+	           (eval
+		        (concat
+		         flycheck-aspell-sed-executable " s/^/^/ | "
+		         flycheck-aspell-aspell-executable " pipe -d "
+		         (or ispell-local-dictionary
+		             ispell-dictionary
+		             "en_US")
+		         " "
+		         (mapconcat 'identity ',flags " "))))
      :standard-input t
-     :error-parser flycheck-parse-aspell
+     :error-parser flycheck-aspell--parse
      :modes ,modes))
 (put 'flycheck-aspell-define-checker 'lisp-indent-function 'defun)
 
@@ -165,48 +165,47 @@
 (flycheck-aspell-define-checker "mail"
   "Mail" ("--add-filter" "url" "--add-filter" "email") (message-mode))
 
-(defun flycheck-parse-aspell (output checker buffer)
+(defun flycheck-aspell--parse (output checker buffer)
   (let ((final-return nil)
-	(line-number 1)
-	(buffer-lines
-	 (split-string
-	  (with-current-buffer buffer
-	    (substring-no-properties (buffer-string)))
-	  "\n"))
-	(error-structs
-	 (mapcar 'flycheck-aspell-handle-line
-		 (split-string output "\n"))))
+	    (line-number 1)
+	    (buffer-lines
+	     (split-string
+	      (with-current-buffer buffer
+	        (substring-no-properties (buffer-string)))
+	      "\n"))
+	    (error-structs
+	     (mapcar 'flycheck-aspell-handle-line
+		         (split-string output "\n"))))
     (dolist (struct error-structs)
       (unless (null struct)
-	(let* ((word (nth 0 struct))
+	    (let* ((word (nth 0 struct))
     	       (column (nth 1 struct))
     	       (suggestions (nth 2 struct)))
     	  (while (not (or (null (cdr buffer-lines))
-			  (string-match-p
-			   (concat
-			    "\\(?:\\<\\|[^[:alpha:]]\\)"
-			    word
-			    "\\(?:\\>\\|[^[:alpha:]]\\)")
-			   (car buffer-lines))))
+			              (string-match-p
+			               (concat
+			                "\\(?:\\<\\|[^[:alpha:]]\\)"
+			                word
+			                "\\(?:\\>\\|[^[:alpha:]]\\)")
+			               (car buffer-lines))))
     	    (setq buffer-lines (cdr buffer-lines))
     	    (setq line-number (1+ line-number)))
-	  (setf (car buffer-lines)
-		(concat
-		 (make-string (1+ column) ?.)
-		 (substring (car buffer-lines) (1+ column))))
-	  ;; (message "%s: %s" word (car buffer-lines))
-	  (push
-	   (flycheck-error-new-at
+	      (setf (car buffer-lines)
+		        (concat
+		         (make-string (1+ column) ?.)
+		         (substring (car buffer-lines) (1+ column))))
+	      (push
+	       (flycheck-error-new-at
     	    line-number (1+ column)
-	    (if (member word ispell-buffer-session-localwords)
-		'info 'error)
+	        (if (member word ispell-buffer-session-localwords)
+		        'info 'error)
     	    (if (null suggestions)
-    		(concat "Unknown: " word)
+    		    (concat "Unknown: " word)
     	      (concat "Suggest: " word " -> " suggestions))
     	    :checker checker
     	    :buffer buffer
     	    :filename (buffer-file-name buffer))
-	   final-return))))
+	       final-return))))
     final-return))
 
 (defun flycheck-aspell-handle-line (line)
@@ -228,7 +227,7 @@
        (group (+ digit)))		; column
    line)
   (let ((word (match-string 1 line))
-	(column (match-string 2 line)))
+	    (column (match-string 2 line)))
     (list word (string-to-number column) nil)))
 
 (defun flycheck-aspell-handle-and (line)
@@ -240,8 +239,8 @@
        (group (+? anything)) line-end)
    line)
   (let ((word (match-string 1 line))
-	(column (match-string 2 line))
-	(suggestions (match-string 3 line)))
+	    (column (match-string 2 line))
+	    (suggestions (match-string 3 line)))
     (list word (string-to-number column) suggestions)))
 
 (provide 'flycheck-aspell)
