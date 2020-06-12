@@ -1,4 +1,4 @@
-;;; flycheck-aspell --- simple spell check using flycheck and aspell -*- lexical-binding: t; -*-
+;;; flycheck-aspell.el --- Aspell checker for flycheck -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019-2019 Leo Gaskin
 
@@ -24,7 +24,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-;;; Commentary
+;;; Commentary:
 
 ;; * flycheck-aspell :README:
 
@@ -87,7 +87,7 @@
 
 ;; ** Configuration
 
-;; For seamless ispell integration, I recommend setting the following variables:
+;; For seamless Ispell integration, I recommend setting the following variables:
 
 ;; #+begin_src elisp
 ;; (setq ispell-dictionary "some_dictionary"
@@ -119,12 +119,14 @@
 ;;   - [X] texinfo
 ;;   - [X] email (message-mode)
 ;; + [ ] tests
-;; + [X] honor ispell localwords (they are marked as info)
+;; + [X] honor Ispell localwords (they are marked as info)
 
 ;; * bottom footer :code:
 
 (require 'flycheck)
 (require 'ispell)
+
+;;; Code:
 
 (defcustom flycheck-aspell-aspell-executable
   "aspell"
@@ -244,3 +246,5 @@
     (list word (string-to-number column) suggestions)))
 
 (provide 'flycheck-aspell)
+
+;;; flycheck-aspell.el ends here

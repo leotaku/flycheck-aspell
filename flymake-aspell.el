@@ -1,4 +1,4 @@
-;;; flymake-aspell.el --- Aspell backend for flymake  -*- lexical-binding: t; -*-
+;;; flymake-aspell.el --- Aspell checker for flymake -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019-2019 Leo Gaskin
 
