@@ -119,10 +119,8 @@ REPORT-FN is flymake's callback function."
   (when (process-live-p flymake-aspell--proc)
     (kill-process flymake-aspell--proc))
   (let ((source (current-buffer))
-        (dict (if (featurep 'ispell)
-                  (or ispell-local-dictionary
-                      ispell-dictionary)
-                "en_US"))
+        (dict (or ispell-local-dictionary
+                  ispell-dictionary))
         (mode flymake-aspell-aspell-mode))
     (save-restriction
       (widen)
