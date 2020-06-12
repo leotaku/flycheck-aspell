@@ -128,13 +128,18 @@
 
 ;;; Code:
 
-(defcustom flycheck-aspell-aspell-executable
-  "aspell"
-  "Path of the aspell executable used by all flycheck-aspell checkers.")
+(defgroup flycheck-aspell nil
+  "Aspell checker for flycheck."
+  :group 'flycheck
+  :prefix "flycheck-aspell-")
 
-(defcustom flycheck-aspell-sed-executable
-  "sed"
-  "Path of the sed executable used by all flycheck-aspell checkers.")
+(defcustom flycheck-aspell-aspell-executable "aspell"
+  "Path of the aspell executable used by all flycheck-aspell checkers."
+  :type 'file)
+
+(defcustom flycheck-aspell-sed-executable "sed"
+  "Path of the sed executable used by all flycheck-aspell checkers."
+  :type 'file)
 
 (defmacro flycheck-aspell-define-checker (ft ft-doc flags modes)
   `(flycheck-define-checker ,(intern (concat ft "-aspell-dynamic"))

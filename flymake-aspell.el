@@ -42,12 +42,20 @@
 
 ;;; Code:
 
-(defvar flymake-aspell-additional-ispell-integration t
-  "By default, flymake-aspell advices some Ispell functions to immediately
-unmark accepted words.
-This behavior can be disabled by setting this option to nil.")
+(defgroup flymake-aspell nil
+  "Aspell checker for flymake."
+  :group 'flymake
+  :prefix "flymake-aspell-")
 
-(defvar-local flymake-aspell-aspell-mode "url"
+(defcustom flymake-aspell-additional-ispell-integration t
+  "Whether to advice Ispell functions for better integration.
+
+When the option is non-nil, this package advices certain Ispell
+functions to immediately update the errors displayed by the
+flymake-aspell checker."
+  :type 'bool)
+
+(defcustom flymake-aspell-aspell-mode "url"
   "Aspell mode that should be used by the spell checker.
 
 The flymake-aspell package tries to provide sensible defaults for
@@ -62,14 +70,18 @@ NOTE: aspell also supports a powerful way to describe \"custom modes\"
 using its \"context\" filter.
 This is not currently supported directly through flymake-aspell, but
 you can manually set any option using the `flyspell-aspell-local-aspell-options'
-variable.
-")
+variable."
+  :type 'string
+  :local t)
 
-(defvar-local flymake-aspell-local-aspell-options '()
-  "List of additional local options for the flymake-aspell aspell process.")
+(defcustom flymake-aspell-local-aspell-options '()
+  "List of additional local options for the flymake-aspell aspell process."
+  :type '(repeat string)
+  :local t)
 
-(defvar-local flymake-aspell-aspell-options '("--guess" "--sug-mode=normal")
-  "List of additional options for the flymake-aspell aspell process.")
+(defcustom flymake-aspell-aspell-options '("--guess" "--sug-mode=normal")
+  "List of additional options for the flymake-aspell aspell process."
+  :type '(repeat string))
 
 (defvar-local flymake-aspell--proc nil
   "A buffer-local variable handling the aspell process for flymake.")
