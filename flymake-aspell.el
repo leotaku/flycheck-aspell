@@ -71,13 +71,11 @@ using its \"context\" filter.
 This is not currently supported directly through flymake-aspell, but
 you can manually set any option using the `flyspell-aspell-local-aspell-options'
 variable."
-  :type 'string
-  :local t)
+  :type 'string)
 
 (defcustom flymake-aspell-local-aspell-options '()
   "List of additional local options for the flymake-aspell aspell process."
-  :type '(repeat string)
-  :local t)
+  :type '(repeat string))
 
 (defcustom flymake-aspell-aspell-options '("--guess" "--sug-mode=normal")
   "List of additional options for the flymake-aspell aspell process."
@@ -85,6 +83,13 @@ variable."
 
 (defvar-local flymake-aspell--proc nil
   "A buffer-local variable handling the aspell process for flymake.")
+
+;; The `defcustom' :local keyword does not exist for older Emacs
+;; versions, so variables have to be made buffer-local
+;; imperatively.
+
+(make-variable-buffer-local 'flymake-aspell-local-aspell-options)
+(make-variable-buffer-local 'flymake-aspell-aspell-mode)
 
 (cl-defmacro flymake-aspell-set-modes (&rest pairs)
   `(progn
