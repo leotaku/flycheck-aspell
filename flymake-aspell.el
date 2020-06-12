@@ -197,8 +197,7 @@ REPORT-FN is flymake's callback function."
                  (setq line-number 0)))
           ("*" nil)
           ("@" nil)
-          (_ (error "Unknown beginning of line character in line %s"
-                    line)))))
+          (_ (error "Unknown beginning of line character in line %s" line)))))
     (nreverse errors)))
 
 (defun flymake-aspell--handle-hash (line)
