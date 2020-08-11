@@ -1,12 +1,9 @@
 # flycheck-aspell
 
-## IMPORTANT NOTICE
+**NOTE:** This repository now also contains the `flymake-aspell` package, which is what I currently use for spellchecking.
+Documentation regarding said package can be found inside the `flymake-aspell.el` file.
+Both packages should remain usable for the foreseeable future.
 
-This repository now also contains the `flymake-aspell` package, which is what I currently use for spellchecking.
-Documentation regarding said package can be found in its `.el` file.
-
-However `flycheck-aspell` should still remain usable for the
-foreseeable future.
 **NOTE:** Both `flycheck-aspell` and `flymake-aspell` now require at least [GNU Aspell 0.68.8](http://aspell.net/man-html/ChangeLog.html) for spell-checking Markdown buffers.
 This is because GNU Aspell added a new filter for Markdown syntax but does not support a graceful fallback when filters are not available.
 
@@ -14,9 +11,9 @@ This is because GNU Aspell added a new filter for Markdown syntax but does not s
 
 This package adds support for spell checking to Flycheck and Flymake using the [GNU Aspell](http://aspell.net) application.
 
-It is a successor to (and complete rewrite of) my [flycheck-hunspell](https://github.com/leotaku/flycheck-hunspell) project, which was crippled by the bad performance of Hunspell when used with larger files. (Aspell performs aproximately 30x faster in the cases I tested.)
+It is a successor to (and complete rewrite of) my [flycheck-hunspell](https://github.com/leotaku/flycheck-hunspell) project, which was crippled by the bad performance of Hunspell when used with larger files. Aspell performs aproximately 30x faster in the cases I tested.
 
-Aspell also seems to be a bit more flexible than Hunspell with regard to filters, which might prove to be useful in the future.
+Aspell also seems to be a bit more flexible than Hunspell with regard to syntax filters, which might prove to be useful in the future.
 
 ## Installation
 
