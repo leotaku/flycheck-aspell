@@ -115,7 +115,7 @@ The Aspell process is additionally passed FLAGS."
           ("*" nil)
           ("@" nil)
           (_ (error "Unknown beginning of line character in line %s" line)))))
-    (nreverse errors)))
+    errors))
 
 (defun flycheck-aspell--handle-hash (line)
   (string-match
