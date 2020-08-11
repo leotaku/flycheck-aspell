@@ -45,7 +45,10 @@
     `(prog1
          (flycheck-define-checker ,symbol
            ,(format "A spell checker for %s files using aspell." ft-doc)
-           :command ("aspell" "pipe" ,@flags)
+           :command ("aspell" "pipe" ,@flags "-d"
+                     (eval (or ispell-local-dictionary
+                               ispell-dictionary
+                               "en_US")))
            :error-parser flycheck-aspell--parse
            :modes ,modes)
        (setf (flycheck-checker-get ',symbol 'start)
