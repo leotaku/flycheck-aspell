@@ -174,60 +174,48 @@
 
 (defun flycheck-aspell--parse (output checker buffer)
   (let ((final-return nil)
-	    (line-number 1)
-	    (buffer-lines
-	     (split-string
-	      (with-current-buffer buffer
-	        (substring-no-properties (buffer-string)))
-	      "\n"))
-	    (error-structs
-	     (mapcar 'flycheck-aspell-handle-line
-		         (split-string output "\n"))))
-    (dolist (struct error-structs)
-      (unless (null struct)
-	    (let* ((word (nth 0 struct))
-    	       (column (nth 1 struct))
-    	       (suggestions (nth 2 struct)))
-    	  (while (not (or (null (cdr buffer-lines))
-			              (string-match-p
-			               (concat
-			                "\\(?:\\<\\|[^[:alpha:]]\\)"
-			                word
-			                "\\(?:\\>\\|[^[:alpha:]]\\)")
-			               (car buffer-lines))))
-    	    (setq buffer-lines (cdr buffer-lines))
-    	    (setq line-number (1+ line-number)))
-	      (setf (car buffer-lines)
-		        (concat
-		         (make-string (1+ column) ?.)
-		         (substring (car buffer-lines) (1+ column))))
-	      (push
-	       (flycheck-error-new-at
-    	    line-number (1+ column)
-	        (if (member word ispell-buffer-session-localwords)
-		        'info 'error)
-    	    (if (null suggestions)
-    		    (concat "Unknown: " word)
-    	      (concat "Suggest: " word " -> " suggestions))
-    	    :checker checker
-    	    :buffer buffer
-    	    :filename (buffer-file-name buffer))
-	       final-return))))
+        (errors (flycheck-aspell--process-text output)))
+    (dolist (err errors)
+      (when err
+        (push
+         (flycheck-aspell--format-error err checker buffer)
+         final-return)))
     final-return))
 
-(defun flycheck-aspell-handle-line (line)
-  (cond
-   ;; # indicates that no replacement could be found
-   ((string-match-p "^#" line)
-    (flycheck-aspell-handle-hash line))
-   ;; & indicates that replacements could be found
-   ((string-match-p "^&" line)
-    (flycheck-aspell-handle-and line))
-   ;; other lines are irrelevant
-   (t
-    nil)))
+(defun flycheck-aspell--format-error (err checker buffer)
+  (when err
+    (let ((line-number (nth 0 err))
+          (column (nth 1 err))
+          (word (nth 2 err))
+          (suggestions (nth 3 err)))
+      (flycheck-error-new-at
+       line-number (1+ column)
+	   (if (member word ispell-buffer-session-localwords)
+		   'info 'error)
+       (if (null suggestions)
+    	   (concat "Unknown: " word)
+         (concat "Suggest: " word " -> " suggestions))
+       :checker checker
+       :buffer buffer
+       :filename (buffer-file-name buffer)))))
 
-(defun flycheck-aspell-handle-hash (line)
+(defun flycheck-aspell--process-text (text)
+  (let ((line-number 1)
+        (errors '()))
+    (dolist (line (split-string text "\n"))
+      (if (= 0 (length line))
+          (cl-incf line-number)
+        (pcase (substring line 0 1)
+          ("&" (progn
+                 (push (cons line-number (flycheck-aspell--handle-and line)) errors)))
+          ("#" (progn
+                 (push (cons line-number (flycheck-aspell--handle-hash line)) errors)))
+          ("*" nil)
+          ("@" nil)
+          (_ (error "Unknown beginning of line character in line %s" line)))))
+    (nreverse errors)))
+
+(defun flycheck-aspell--handle-hash (line)
   (string-match
    (rx line-start "# "			; start
        (group (+ wordchar)) " "	; error
@@ -235,9 +223,9 @@
    line)
   (let ((word (match-string 1 line))
 	    (column (match-string 2 line)))
-    (list word (string-to-number column) nil)))
+    (list (string-to-number column) word nil)))
 
-(defun flycheck-aspell-handle-and (line)
+(defun flycheck-aspell--handle-and (line)
   (string-match
    (rx line-start "& "			; start
        (group (+ wordchar)) " "	; error
@@ -248,7 +236,7 @@
   (let ((word (match-string 1 line))
 	    (column (match-string 2 line))
 	    (suggestions (match-string 3 line)))
-    (list word (string-to-number column) suggestions)))
+    (list (string-to-number column) word suggestions)))
 
 (provide 'flycheck-aspell)
 
