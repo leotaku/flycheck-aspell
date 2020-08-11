@@ -62,9 +62,9 @@ The flymake-aspell package tries to provide sensible defaults for
 all modes natively supported by aspell and some additional ones
 the author of this package regularly uses.
 
-If your favorite major-mode is not supported, please run
-\"aspell dump modes\" in your terminal and add the fitting mode
-to your major-mode by using `setq-mode-local'.
+If your favorite major mode is not yet supported, please run
+\"aspell dump modes\" in your terminal and then add the fitting
+aspell mode to your major mode using `setq-mode-local'.
 
 NOTE: aspell also supports a powerful way to describe \"custom modes\"
 using its \"context\" filter.
