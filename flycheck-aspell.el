@@ -133,30 +133,26 @@
   :group 'flycheck
   :prefix "flycheck-aspell-")
 
-(defcustom flycheck-aspell-aspell-executable "aspell"
-  "Path of the aspell executable used by all flycheck-aspell checkers."
-  :type 'file)
-
-(defcustom flycheck-aspell-sed-executable "sed"
-  "Path of the sed executable used by all flycheck-aspell checkers."
-  :type 'file)
-
 (defmacro flycheck-aspell-define-checker (ft ft-doc flags modes)
-  `(flycheck-define-checker ,(intern (concat ft "-aspell-dynamic"))
-     ,(format "A spell checker for %s files using aspell." ft-doc)
-     :command ("sh" "-c"
-	           (eval
-		        (concat
-		         flycheck-aspell-sed-executable " s/^/^/ | "
-		         flycheck-aspell-aspell-executable " pipe -d "
-		         (or ispell-local-dictionary
-		             ispell-dictionary
-		             "en_US")
-		         " "
-		         (mapconcat 'identity ',flags " "))))
-     :standard-input t
-     :error-parser flycheck-aspell--parse
-     :modes ,modes))
+  (let ((symbol (intern (concat ft "-aspell-dynamic"))))
+    `(prog1
+         (flycheck-define-checker ,symbol
+           ,(format "A spell checker for %s files using aspell." ft-doc)
+           :command ("aspell" "pipe" ,@flags)
+           :error-parser flycheck-aspell--parse
+           :modes ,modes)
+       (setf (flycheck-checker-get ',symbol 'start)
+             (lambda (checker callback)
+               (let ((process (flycheck-start-command-checker checker callback))
+                     (old-buffer (current-buffer)))
+                 (with-temp-buffer
+                   (insert-buffer-substring old-buffer)
+                   (setf (point) (point-min))
+                   (while (not (eobp))
+                     (setf (point) (point-at-bol))
+                     (insert "^")
+                     (next-line))
+                   (flycheck-process-send-buffer process))))))))
 (put 'flycheck-aspell-define-checker 'lisp-indent-function 'defun)
 
 (flycheck-aspell-define-checker "tex"
