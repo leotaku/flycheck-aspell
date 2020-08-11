@@ -31,7 +31,11 @@
 ;; contained in this directory for further information.
 
 (require 'flycheck)
+(require 'pcase)
+(require 'rx)
 (require 'ispell)
+(eval-when-compile
+  (require 'cl-lib))
 
 ;;; Code:
 
