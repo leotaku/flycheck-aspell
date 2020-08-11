@@ -6,8 +6,8 @@
 ;; Created: 26 May 2019
 ;; Homepage: https://github.com/leotaku/flycheck-aspell
 ;; Keywords: flycheck, spell, aspell
-;; Package-Version: 0.1.0
-;; Package-Requires: ((flycheck "31") (emacs "25.1"))
+;; Package-Version: 0.2.0
+;; Package-Requires: ((flycheck "28.0") (emacs "25.1"))
 
 ;; This file is not part of GNU Emacs.
 
