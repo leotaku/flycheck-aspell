@@ -50,7 +50,7 @@ For seamless Ispell integration, I recommend setting the following variables:
 You may also want to advice `ispell-pdict-save` for instant feedback when inserting new entries into your local dictionary:
 
 ```emacs-lisp
-(advice-add 'ispell-pdict-save :after 'flycheck-maybe-recheck)
+(advice-add #'ispell-pdict-save :after #'flycheck-maybe-recheck)
 (defun flycheck-maybe-recheck (_)
   (when (bound-and-true-p flycheck-mode)
    (flycheck-buffer))

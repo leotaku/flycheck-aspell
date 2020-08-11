@@ -184,8 +184,8 @@ REPORT-FN is flymake's callback function."
     (flymake-start)))
 
 (when flymake-aspell-additional-ispell-integration
-  (advice-add 'ispell-pdict-save :after 'flymake-aspell-maybe-recheck)
-  (advice-add 'ispell-change-dictionary :after 'flymake-aspell-maybe-recheck))
+  (advice-add #'ispell-pdict-save :after #'flymake-aspell-maybe-recheck)
+  (advice-add #'ispell-change-dictionary :after #'flymake-aspell-maybe-recheck))
 
 (defun flymake-aspell--process-text (text)
   (let ((line-number 0)
