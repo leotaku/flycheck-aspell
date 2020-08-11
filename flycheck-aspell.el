@@ -73,7 +73,7 @@ The Aspell process is additionally passed FLAGS."
 (flycheck-aspell-define-checker "tex"
   "TeX" ("--add-filter" "url" "--add-filter" "tex") (tex-mode latex-mode context-mode))
 (flycheck-aspell-define-checker "markdown"
-  "Markdown" ("--add-filter" "url" "--add-filter" "html") (markdown-mode gfm-mode))
+  "Markdown" ("--add-filter" "url" "--add-filter" "markdown") (markdown-mode gfm-mode))
 (flycheck-aspell-define-checker "html"
   "HTML" ("--add-filter" "url" "--add-filter" "html") (html-mode))
 (flycheck-aspell-define-checker "nroff"

@@ -7,6 +7,8 @@ Documentation regarding said package can be found in its `.el` file.
 
 However `flycheck-aspell` should still remain usable for the
 foreseeable future.
+**NOTE:** Both `flycheck-aspell` and `flymake-aspell` now require at least [GNU Aspell 0.68.8](http://aspell.net/man-html/ChangeLog.html) for spell-checking Markdown buffers.
+This is because GNU Aspell added a new filter for Markdown syntax but does not support a graceful fallback when filters are not available.
 
 ![flycheck-aspell in action](screenshot.png)
 

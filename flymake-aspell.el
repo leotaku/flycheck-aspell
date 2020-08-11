@@ -113,7 +113,9 @@ variable."
  (html-mode "html")
  (message-mode "email")
  (nroff-mode "nroff")
- (texinfo-mode "texinfo"))
+ (texinfo-mode "texinfo")
+ (markdown-mode "markdown")
+ (gfm-mode "markdown"))
 
 (defun flymake-aspell--check (report-fn &rest _args)
   "Run flymake spell checker.
