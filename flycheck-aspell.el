@@ -59,15 +59,16 @@ The Aspell process is additionally passed FLAGS."
            :error-parser flycheck-aspell--parse
            :modes ,modes)
        (setf (flycheck-checker-get ',symbol 'start)
-             (lambda (checker callback)
-               (let ((process (flycheck-start-command-checker checker callback)))
-                 (save-excursion
-                   ;; enter terse mode for better performance
-                   (process-send-string process "!\n")
-                   (dolist (line (split-string (buffer-string) "\n"))
-                     (process-send-string process (concat "^" line "\n")))
-                   (process-send-eof process))))))))
-(put 'flycheck-aspell-define-checker 'lisp-indent-function 'defun)
+             #'flycheck-aspell--start-checker))))
+
+(defun flycheck-aspell--start-checker (checker callback)
+  (let ((process (flycheck-start-command-checker checker callback)))
+    (save-excursion
+      ;; enter terse mode for better performance
+      (process-send-string process "!\n")
+      (dolist (line (split-string (buffer-string) "\n"))
+        (process-send-string process (concat "^" line "\n")))
+      (process-send-eof process))))
 
 (flycheck-aspell-define-checker "tex"
   "TeX" ("--add-filter" "url" "--add-filter" "tex") (tex-mode latex-mode context-mode))
