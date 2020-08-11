@@ -105,6 +105,7 @@ variable."
  (c-mode "ccpp")
  (rust-mode "ccpp")
  (nix-mode "comment")
+ (plain-tex-mode "tex")
  (tex-mode "tex")
  (latex-mode "tex")
  (context-mode "tex")

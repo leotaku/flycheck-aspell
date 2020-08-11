@@ -71,17 +71,26 @@ The Aspell process is additionally passed FLAGS."
       (process-send-eof process))))
 
 (flycheck-aspell-define-checker "tex"
-  "TeX" ("--add-filter" "url" "--add-filter" "tex") (tex-mode latex-mode context-mode))
+  "TeX" ("--add-filter" "url" "--add-filter" "tex")
+  (plain-tex-mode tex-mode latex-mode context-mode))
 (flycheck-aspell-define-checker "markdown"
-  "Markdown" ("--add-filter" "url" "--add-filter" "markdown") (markdown-mode gfm-mode))
+  "Markdown" ("--add-filter" "url" "--add-filter" "markdown")
+  (markdown-mode gfm-mode))
 (flycheck-aspell-define-checker "html"
-  "HTML" ("--add-filter" "url" "--add-filter" "html") (html-mode))
+  "HTML" ("--add-filter" "url" "--add-filter" "html")
+  (html-mode))
+(flycheck-aspell-define-checker "xml"
+  "HTML" ("--add-filter" "url" "--add-filter" "sgml")
+  (sgml-mode xml-mode))
 (flycheck-aspell-define-checker "nroff"
-  "nroff/troff/groff" ("--add-filter" "url" "--add-filter" "nroff") (nroff-mode))
+  "nroff/troff/groff" ("--add-filter" "url" "--add-filter" "nroff")
+  (nroff-mode))
 (flycheck-aspell-define-checker "texinfo"
-  "Texinfo" ("--add-filter" "url" "--add-filter" "texinfo") (texinfo-mode))
+  "Texinfo" ("--add-filter" "url" "--add-filter" "texinfo")
+  (texinfo-mode))
 (flycheck-aspell-define-checker "mail"
-  "Mail" ("--add-filter" "url" "--add-filter" "email") (message-mode))
+  "Mail" ("--add-filter" "url" "--add-filter" "email")
+  (message-mode))
 
 (defun flycheck-aspell--parse (output checker buffer)
   (let ((final-return nil)
