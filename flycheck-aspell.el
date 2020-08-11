@@ -53,16 +53,13 @@
            :modes ,modes)
        (setf (flycheck-checker-get ',symbol 'start)
              (lambda (checker callback)
-               (let ((process (flycheck-start-command-checker checker callback))
-                     (old-buffer (current-buffer)))
-                 (with-temp-buffer
-                   (insert-buffer-substring old-buffer)
-                   (setf (point) (point-min))
-                   (while (not (eobp))
-                     (setf (point) (point-at-bol))
-                     (insert "^")
-                     (next-line))
-                   (flycheck-process-send-buffer process))))))))
+               (let ((process (flycheck-start-command-checker checker callback)))
+                 (save-excursion
+                   ;; enter terse mode for better performance
+                   (process-send-string process "!\n")
+                   (dolist (line (split-string (buffer-string) "\n"))
+                     (process-send-string process (concat "^" line "\n")))
+                   (process-send-eof process))))))))
 (put 'flycheck-aspell-define-checker 'lisp-indent-function 'defun)
 
 (flycheck-aspell-define-checker "tex"
