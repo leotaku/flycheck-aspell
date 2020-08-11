@@ -45,6 +45,9 @@
   :prefix "flycheck-aspell-")
 
 (defmacro flycheck-aspell-define-checker (ft ft-doc flags modes)
+  "Define a new checker FT with display name FT-DOC valid for MODES.
+The Aspell process is additionally passed FLAGS."
+  (declare (indent defun))
   (let ((symbol (intern (concat ft "-aspell-dynamic"))))
     `(prog1
          (flycheck-define-checker ,symbol
