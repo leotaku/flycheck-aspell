@@ -84,32 +84,23 @@ The Aspell process is additionally passed FLAGS."
 
 (defun flycheck-aspell--parse (output checker buffer)
   (let ((final-return nil)
-        (errors (flycheck-aspell--process-text output)))
-    (dolist (err errors)
-      (when err
-        (push
-         (flycheck-aspell--format-error err checker buffer)
-         final-return)))
+        (errors (flycheck-aspell--process-output output)))
+    (pcase-dolist (`(,line-number ,column ,word ,suggestions) errors)
+      (push
+       (flycheck-error-new-at
+        line-number (1+ column)
+	    (if (member word ispell-buffer-session-localwords)
+		    'info 'error)
+        (if (null suggestions)
+    	    (concat "Unknown: " word)
+          (concat "Suggest: " word " -> " suggestions))
+        :checker checker
+        :buffer buffer
+        :filename (buffer-file-name buffer))
+       final-return))
     final-return))
 
-(defun flycheck-aspell--format-error (err checker buffer)
-  (when err
-    (let ((line-number (nth 0 err))
-          (column (nth 1 err))
-          (word (nth 2 err))
-          (suggestions (nth 3 err)))
-      (flycheck-error-new-at
-       line-number (1+ column)
-	   (if (member word ispell-buffer-session-localwords)
-		   'info 'error)
-       (if (null suggestions)
-    	   (concat "Unknown: " word)
-         (concat "Suggest: " word " -> " suggestions))
-       :checker checker
-       :buffer buffer
-       :filename (buffer-file-name buffer)))))
-
-(defun flycheck-aspell--process-text (text)
+(defun flycheck-aspell--process-output (text)
   (let ((line-number 1)
         (errors '()))
     (dolist (line (split-string text "\n"))
