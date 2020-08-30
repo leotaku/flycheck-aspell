@@ -5,7 +5,7 @@
 ;; Author: Leo Gaskin <leo.gaskin@brg-feldkirchen.at>
 ;; Created: 26 May 2019
 ;; Homepage: https://github.com/leotaku/flycheck-aspell
-;; Keywords: flymake, spell, aspell
+;; Keywords: wp
 ;; Package-Version: 0.1.0
 ;; Package-Requires: ((emacs "26.1"))
 
