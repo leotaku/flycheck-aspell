@@ -176,6 +176,8 @@ REPORT-FN is flymake's callback function."
         (process-send-string flymake-aspell--proc (concat "^" line "\n")))
       (process-send-eof flymake-aspell--proc))))
 
+
+;;;###autoload
 (defun flymake-aspell-setup ()
   "Enable the spell checker for the current buffer."
   (interactive)
