@@ -22,7 +22,7 @@ This should be seen as the preferred distribution method for new users, however 
 
 ## Usage
 
-Simply register your preferred checkers with flycheck and then start `flycheck-mode` in the buffer you would like to spell-check.
+Simply register your preferred checkers with Flycheck and then start `flycheck-mode` in the buffer you would like to spell-check.
 
 ```emacs-lisp
 (require 'flycheck-aspell)
@@ -31,7 +31,7 @@ Simply register your preferred checkers with flycheck and then start `flycheck-m
 
 The dictionary the checkers use is determined by the values of `ispell-local-dictionary` or `ispell-dictionary`.
 
-It might be wise to skim the [flycheck docs](https://www.flycheck.org/en/latest/) to learn how to best use and configure flycheck.
+It might be wise to skim the [Flycheck docs](https://www.flycheck.org/en/latest/) to learn how to best use and configure Flycheck.
 
 You of course also need to install the GNU Aspell binary.
 
@@ -58,13 +58,13 @@ You may also want to advice `ispell-pdict-save` for instant feedback when insert
 
 ## Features
 
-- [X] initial featureset
-- [X] checkers for all filters (all with url support)
+- [X] Initial featureset
+- [X] Checkers for all filters (all with url support)
   - [X] TeX
-  - [X] markdown
-  - [X] nroff
-  - [X] html
-  - [X] texinfo
-  - [X] email (message-mode)
-- [ ] tests
-- [X] honor Ispell localwords (they are marked as info)
+  - [X] Markdown
+  - [X] Nroff
+  - [X] Html
+  - [X] Texinfo
+  - [X] Email (message-mode)
+- [ ] Tests
+- [X] Honor Ispell localwords (TODO: Flycheck only)
