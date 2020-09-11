@@ -17,7 +17,8 @@ Aspell also seems to be a bit more flexible than Hunspell with regard to syntax 
 
 ## Installation
 
-I recommend using [straight.el](https://github.com/raxod502/straight.el) for installing non-(M)ELPA sources.
+Thanks to [Sam Kleinman](https://github.com/tychoish) and [Chris Rayner](https://github.com/riscy) both `flycheck-aspell` and `flymake-aspell` can now be found on MELPA.
+This should be seen as the preferred distribution method for new users, however manual installation is of course still possible and you will not have to change your existing configuration to accommodate this change.
 
 ## Usage
 
