@@ -1,3 +1,5 @@
+[![MELPA](https://melpa.org/packages/flymake-aspell-badge.svg)](https://melpa.org/#/flymake-aspell)
+
 # flycheck-aspell
 
 **NOTE:** This repository now also contains the `flymake-aspell` package, which is what I currently use for spellchecking.
