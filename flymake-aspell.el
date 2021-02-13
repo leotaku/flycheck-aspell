@@ -1,6 +1,6 @@
 ;;; flymake-aspell.el --- Aspell checker for flymake -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2019-2019 Leo Gaskin
+;; Copyright (C) 2019-2021 Leo Gaskin
 
 ;; Author: Leo Gaskin <leo.gaskin@brg-feldkirchen.at>
 ;; Created: 26 May 2019
