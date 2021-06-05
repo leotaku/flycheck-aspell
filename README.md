@@ -37,10 +37,10 @@ In contrast, `flycheck-aspell` and `flymake-aspell` asynchronously run Aspell in
   - [X] URL (default)
   - [X] Email (skip over block quotes)
   + [X] C/C++/Rust/Go (only C-style comments and strings)
+  - [X] Nroff/Troff/Groff
   - [X] TeX/LaTeX
   + [X] SGML/XML
   - [X] HTML
   - [X] Markdown
   - [X] Texinfo
-  - [X] Nroff
 - [X] Honor Ispell localwords (currently only using `flycheck-aspell`)
