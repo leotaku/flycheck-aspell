@@ -33,12 +33,14 @@ In contrast, `flycheck-aspell` and `flymake-aspell` asynchronously run Aspell in
 ## Features
 
 - [X] Initial featureset
-- [X] Checkers for all filters (all with url support)
-  - [X] TeX
+- [X] Support for all syntax filters
+  - [X] URL (default)
+  - [X] Email (skip over block quotes)
+  + [X] C/C++/Rust/Go (only C-style comments and strings)
+  - [X] TeX/LaTeX
+  + [X] SGML/XML
+  - [X] HTML
   - [X] Markdown
-  - [X] Nroff
-  - [X] Html
   - [X] Texinfo
-  - [X] Email (message-mode)
-- [ ] Tests
-- [X] Honor Ispell localwords (TODO: Flycheck only)
+  - [X] Nroff
+- [X] Honor Ispell localwords (currently only using `flycheck-aspell`)
