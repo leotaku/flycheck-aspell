@@ -83,7 +83,7 @@ The Aspell process is additionally passed FLAGS."
   "SGML" ("--add-filter" "url" "--add-filter" "sgml")
   (sgml-mode xml-mode))
 (flycheck-aspell-define-checker "nroff"
-  "nroff/troff/groff" ("--add-filter" "url" "--add-filter" "nroff")
+  "Nroff" ("--add-filter" "url" "--add-filter" "nroff")
   (nroff-mode))
 (flycheck-aspell-define-checker "texinfo"
   "Texinfo" ("--add-filter" "url" "--add-filter" "texinfo")
