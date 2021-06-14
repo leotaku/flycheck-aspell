@@ -18,6 +18,7 @@ This package adds support for spell checking to Flycheck and Flymake using the [
 ## Installation
 
 Thanks to [Sam Kleinman](https://github.com/tychoish) and [Chris Rayner](https://github.com/riscy) both `flycheck-aspell` and `flymake-aspell` can now be found on MELPA.
+Install them using your preferred package installation method.
 
 ## Usage
 
