@@ -61,5 +61,5 @@ This way highlighting instantly updates when you add a previously unknown word.
 (advice-add #'ispell-pdict-save :after #'flycheck-maybe-recheck)
 (defun flycheck-maybe-recheck (_)
   (when (bound-and-true-p flycheck-mode)
-   (flycheck-buffer))
+   (flycheck-buffer)))
 ```
