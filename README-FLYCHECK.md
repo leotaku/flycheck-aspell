@@ -10,7 +10,31 @@ Simply register your preferred checkers with Flycheck and then start `flycheck-m
 
 ```emacs-lisp
 (require 'flycheck-aspell)
+;; If you want to check TeX/LaTeX/ConTeXt buffers
 (add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
+;; If you want to check Markdown/GFM buffers
+(add-to-list 'flycheck-checkers 'markdown-aspell-dynamic)
+;; If you want to check HTML buffers
+(add-to-list 'flycheck-checkers 'html-aspell-dynamic)
+;; If you want to check XML/SGML buffers
+(add-to-list 'flycheck-checkers 'xml-aspell-dynamic)
+;; If you want to check Nroff/Troff/Groff buffers
+(add-to-list 'flycheck-checkers 'nroff-aspell-dynamic)
+;; If you want to check Texinfo buffers
+(add-to-list 'flycheck-checkers 'texinfo-aspell-dynamic)
+;; If you want to check message buffers
+(add-to-list 'flycheck-checkers 'mail-aspell-dynamic)
+```
+
+If you want to enable spell checking for a mode that is not in the above list, you should define and register an additional checker for that mode as seen below.
+
+``` emacs-lisp
+;; Because Aspell does not support Org syntax, the user has
+;; to define a checker with the desired flags themselves.
+(flycheck-aspell-define-checker "org"
+  "Org" ("--add-filter" "url")
+  (org-mode))
+(add-to-list 'flycheck-checkers 'org-aspell-dynamic)
 ```
 
 + The dictionary the checkers use is determined by the values of `ispell-local-dictionary` or, if the former variable is unset, `ispell-dictionary`.
