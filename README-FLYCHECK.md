@@ -6,9 +6,10 @@
 
 ## Basic usage
 
-Simply register your preferred checkers with Flycheck and then start `flycheck-mode` in the buffer you would like to spell-check.
+For natively supported modes, register your preferred checkers with Flycheck and then start `flycheck-mode` in the buffer you would like to spell-check.
 
 ```emacs-lisp
+;; Ensure `flycheck-aspell' is available
 (require 'flycheck-aspell)
 ;; If you want to check TeX/LaTeX/ConTeXt buffers
 (add-to-list 'flycheck-checkers 'tex-aspell-dynamic)
