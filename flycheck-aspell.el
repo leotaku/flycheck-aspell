@@ -91,6 +91,9 @@ The Aspell process is additionally passed FLAGS."
 (flycheck-aspell-define-checker "mail"
   "Mail" ("--add-filter" "url" "--add-filter" "email")
   (message-mode))
+(flycheck-aspell-define-checker "c"
+  "C" ("--add-filter" "url" "--add-filter" "ccpp")
+  (c++mode c-mode rust-mode go-mode))
 
 (defun flycheck-aspell--parse (output checker buffer)
   (let ((final-return nil)

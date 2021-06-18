@@ -23,6 +23,8 @@ For natively supported modes, register your preferred checkers with Flycheck and
 (add-to-list 'flycheck-checkers 'nroff-aspell-dynamic)
 ;; If you want to check Texinfo buffers
 (add-to-list 'flycheck-checkers 'texinfo-aspell-dynamic)
+;; If you want to check comments and strings for C-like languages
+(add-to-list 'flycheck-checkers 'c-aspell-dynamic)
 ;; If you want to check message buffers
 (add-to-list 'flycheck-checkers 'mail-aspell-dynamic)
 ```
