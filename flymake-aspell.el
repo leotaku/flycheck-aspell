@@ -220,21 +220,21 @@ REPORT-FN is flymake's callback function."
        (group (+ digit)))               ; column
    line)
   (let ((word (match-string 1 line))
-	    (column (match-string 2 line)))
+        (column (match-string 2 line)))
     (list word (string-to-number column) nil)))
 
 (defun flymake-aspell--handle-and (line)
   "Handle a LINE of aspell output starting with an and (&) sign."
   (string-match
-   (rx line-start "& "			; start
-       (group (+ wordchar)) " "	; error
-       (+ digit) " "			; suggestion count
-       (group (+ digit)) ": "	; column
+   (rx line-start "& "          ; start
+       (group (+ wordchar)) " " ; error
+       (+ digit) " "            ; suggestion count
+       (group (+ digit)) ": "   ; column
        (group (+? anything)) line-end)
    line)
   (let ((word (match-string 1 line))
-	    (column (match-string 2 line))
-	    (suggestions (match-string 3 line)))
+        (column (match-string 2 line))
+        (suggestions (match-string 3 line)))
     (list word (string-to-number column) suggestions)))
 
 (provide 'flymake-aspell)

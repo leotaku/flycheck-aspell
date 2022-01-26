@@ -102,10 +102,10 @@ The Aspell process is additionally passed FLAGS."
       (push
        (flycheck-error-new-at
         line-number (1+ column)
-	    (if (member word ispell-buffer-session-localwords)
-		    'info 'error)
+        (if (member word ispell-buffer-session-localwords)
+            'info 'error)
         (if (null suggestions)
-    	    (concat "Unknown: " word)
+            (concat "Unknown: " word)
           (concat "Suggest: " word " -> " suggestions))
         :checker checker
         :buffer buffer
@@ -131,25 +131,25 @@ The Aspell process is additionally passed FLAGS."
 
 (defun flycheck-aspell--handle-hash (line)
   (string-match
-   (rx line-start "# "			; start
-       (group (+ wordchar)) " "	; error
-       (group (+ digit)))		; column
+   (rx line-start "# "          ; start
+       (group (+ wordchar)) " " ; error
+       (group (+ digit)))       ; column
    line)
   (let ((word (match-string 1 line))
-	    (column (match-string 2 line)))
+        (column (match-string 2 line)))
     (list (string-to-number column) word nil)))
 
 (defun flycheck-aspell--handle-and (line)
   (string-match
-   (rx line-start "& "			; start
-       (group (+ wordchar)) " "	; error
-       (+ digit) " "			; suggestion count
-       (group (+ digit)) ": "	; column
+   (rx line-start "& "          ; start
+       (group (+ wordchar)) " " ; error
+       (+ digit) " "            ; suggestion count
+       (group (+ digit)) ": "   ; column
        (group (+? anything)) line-end)
    line)
   (let ((word (match-string 1 line))
-	    (column (match-string 2 line))
-	    (suggestions (match-string 3 line)))
+        (column (match-string 2 line))
+        (suggestions (match-string 3 line)))
     (list (string-to-number column) word suggestions)))
 
 (provide 'flycheck-aspell)
