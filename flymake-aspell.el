@@ -215,9 +215,9 @@ REPORT-FN is flymake's callback function."
 (defun flymake-aspell--handle-hash (line)
   "Handle a LINE of aspell output starting with a hash (#) sign."
   (string-match
-   (rx line-start "# "              ; start
-       (group (+? anything)) " "    ; error
-       (group (+ digit)))           ; column
+   (rx line-start "# "                  ; start
+       (group (+? anything)) " "        ; error
+       (group (+ digit)))               ; column
    line)
   (let ((word (match-string 1 line))
         (column (match-string 2 line)))
@@ -226,10 +226,10 @@ REPORT-FN is flymake's callback function."
 (defun flymake-aspell--handle-and (line)
   "Handle a LINE of aspell output starting with an and (&) sign."
   (string-match
-   (rx line-start "& "              ; start
-       (group (+? anything)) " "    ; error
-       (+ digit) " "                ; suggestion count
-       (group (+ digit)) ": "       ; column
+   (rx line-start "& "                  ; start
+       (group (+? anything)) " "        ; error
+       (+ digit) " "                    ; suggestion count
+       (group (+ digit)) ": "           ; column
        (group (+? anything)) line-end)
    line)
   (let ((word (match-string 1 line))

@@ -131,9 +131,9 @@ The Aspell process is additionally passed FLAGS."
 
 (defun flycheck-aspell--handle-hash (line)
   (string-match
-   (rx line-start "# "              ; start
-       (group (+? anything)) " "    ; error
-       (group (+ digit)))           ; column
+   (rx line-start "# "                  ; start
+       (group (+? anything)) " "        ; error
+       (group (+ digit)))               ; column
    line)
   (let ((word (match-string 1 line))
         (column (match-string 2 line)))
@@ -141,10 +141,10 @@ The Aspell process is additionally passed FLAGS."
 
 (defun flycheck-aspell--handle-and (line)
   (string-match
-   (rx line-start "& "              ; start
-       (group (+? anything)) " "    ; error
-       (+ digit) " "                ; suggestion count
-       (group (+ digit)) ": "       ; column
+   (rx line-start "& "                  ; start
+       (group (+? anything)) " "        ; error
+       (+ digit) " "                    ; suggestion count
+       (group (+ digit)) ": "           ; column
        (group (+? anything)) line-end)
    line)
   (let ((word (match-string 1 line))
