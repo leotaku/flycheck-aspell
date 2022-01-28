@@ -145,7 +145,7 @@ The Aspell process is additionally passed FLAGS."
        (group (+? anything)) " "        ; error
        (+ digit) " "                    ; suggestion count
        (group (+ digit)) ": "           ; column
-       (group (+? anything)) line-end)
+       (group (+? anything)) line-end)  ; suggestions
    line)
   (let ((word (match-string 1 line))
         (column (match-string 2 line))
