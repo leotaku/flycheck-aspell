@@ -201,12 +201,12 @@ REPORT-FN is flymake's callback function."
       (if (= 0 (length line))
           (cl-incf line-number)
         (pcase (substring line 0 1)
-          ("&" (progn
-                 (push (cons line-number (flymake-aspell--handle-and line)) errors)
-                 (setq line-number 0)))
-          ("#" (progn
-                 (push (cons line-number (flymake-aspell--handle-hash line)) errors)
-                 (setq line-number 0)))
+          ("&"
+           (push (cons line-number (flymake-aspell--handle-and line)) errors)
+           (setq line-number 0))
+          ("#"
+           (push (cons line-number (flymake-aspell--handle-hash line)) errors)
+           (setq line-number 0))
           ("*" nil)
           ("@" nil)
           (_ (error "Unknown beginning of line character in line %s" line)))))
