@@ -1,7 +1,7 @@
 # flymake-aspell
 
 [![GitHub License](https://img.shields.io/github/license/leotaku/flycheck-aspell?logo=none&style=flat)](https://spdx.org/licenses/GPL-3.0-or-later.html)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/leotaku/flycheck-aspell/check?logo=none&style=flat)](https://github.com/leotaku/flycheck-aspell/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/leotaku/flycheck-aspell/check.yml?logo=none&style=flat)](https://github.com/leotaku/flycheck-aspell/actions)
 [![flymake-aspell on MELPA](https://melpa.org/packages/flymake-aspell-badge.svg)](https://melpa.org/#/flymake-aspell)
 
 ## Basic usage
