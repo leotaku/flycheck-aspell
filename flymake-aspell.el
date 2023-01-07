@@ -33,6 +33,7 @@
 
 ;;   (add-hook 'text-mode-hook #'flymake-aspell-setup)
 
+(require 'flymake)
 (require 'mode-local)
 (require 'pcase)
 (require 'rx)
