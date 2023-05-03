@@ -22,7 +22,6 @@ jobs:
           - 28.1
           - 28.2
           - release-snapshot
-          - snapshot
         file:
           - flymake-aspell.el
           - flycheck-aspell.el
