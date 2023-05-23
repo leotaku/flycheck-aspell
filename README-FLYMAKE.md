@@ -14,16 +14,4 @@ If you want to enable spell checking by default for some mode, simply add `flyma
 (add-hook 'text-mode-hook #'flymake-aspell-setup)
 ```
 
-+ The dictionary the checkers use is determined by the values of `ispell-local-dictionary` or, if the former variable is unset, `ispell-dictionary`.
-+ It might be wise to skim the [Flymake docs](https://www.gnu.org/software/emacs/manual/html_node/flymake/index.html) to learn how to best use and configure Flymake.
-+ You of course also need to install the GNU Aspell binary.
-
-## Configuration
-
-For seamless Emacs Ispell integration, I recommend setting the following variables.
-
-```emacs-lisp
-(setq ispell-dictionary "your_default_dictionary")
-(setq ispell-program-name "aspell")
-(setq ispell-silently-savep t)
-```
+It might be wise to skim the [Flymake docs](https://www.gnu.org/software/emacs/manual/html_node/flymake/index.html) to learn how to best use and configure Flymake.

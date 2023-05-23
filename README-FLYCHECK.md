@@ -40,19 +40,9 @@ If you want to enable spell checking for a mode that is not in the above list, y
 (add-to-list 'flycheck-checkers 'org-aspell-dynamic)
 ```
 
-+ The dictionary the checkers use is determined by the values of `ispell-local-dictionary` or, if the former variable is unset, `ispell-dictionary`.
-+ It might be wise to skim the [Flycheck docs](https://www.flycheck.org/en/latest/) to learn how to best use and configure Flycheck.
-+ You of course also need to install the GNU Aspell binary.
+It might be wise to skim the [Flycheck docs](https://www.flycheck.org/en/latest/) to learn how to best use and configure Flycheck.
 
-## Configuration
-
-For seamless Emacs Ispell integration, I recommend setting the following variables.
-
-```emacs-lisp
-(setq ispell-dictionary "your_default_dictionary")
-(setq ispell-program-name "aspell")
-(setq ispell-silently-savep t)
-```
+## Other configuration snippets
 
 You may also want to advice `ispell-pdict-save` to refresh flycheck when inserting new entries into your local dictionary.
 This way highlighting instantly updates when you add a previously unknown word.
